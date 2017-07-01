@@ -1,0 +1,56 @@
+{
+  "title": "App Framework",
+  "language": "en",
+  "theme": "material-ios",
+  "color": "indigo",
+  "layout": "default",
+  "statusbarVisibility": false,
+  "statusbarTextColor": "white",
+  "statusbarBackgroundColor": "#3f51b5",
+  "changeStatusbarBackgroundColorOnThemeColorChange": true,
+  "iconBackgroundColor": "#ffffff",
+  "useIconFonts": {
+    "framework7": true,
+    "material": true,
+    "ion": false,
+    "fontawesome": false
+  },
+  "limitApplicationWidth": 320,
+  "limitApplicationHeight": 570,
+  "showPhoneFrameOnDesktop": true,
+  "framework7parameters": {},
+  "materialSubnavbarFix": true,
+  "restoreHistory": true,
+  "completeRoutesFile": true,
+  "firebase": {
+    "apiKey": "AIzaSyAvzTiqd9fKR-h47Uxl4iXwqSMU1VjGdII",
+    "authDomain": "app-framework-9045a.firebaseapp.com",
+    "databaseURL": "https://app-framework-9045a.firebaseio.com",
+    "storageBucket": "app-framework-9045a.appspot.com",
+    "projectId": "app-framework-9045a",
+    "allowEmailLogin": true,
+    "allowEmailRegistration": true
+  },
+  "devFirebase": {
+    "deployDevRulesOnTesting": false,
+    "apiKey": "AIzaSyBL0Xxsc-jFZ2BnmQV08T4O9B56HJVpwXk",
+    "authDomain": "dev-app-framework.firebaseapp.com",
+    "databaseURL": "https://dev-app-framework.firebaseio.com",
+    "storageBucket": "dev-app-framework.appspot.com",
+    "projectId": "app-framework-9045a",
+    "allowEmailLogin": true,
+    "allowEmailRegistration": false
+  },
+  "appStoreId": "de.scriptpilot.app-framework",
+  "playStoreId": "de.scriptpilot.appframework",
+  "useCordovaPlugins": [
+    "cordova-plugin-camera",
+    "cordova-plugin-file"
+  ],
+  "resetLocalStorageOnVersionChange": false,
+  "preloadImages": true,
+  "buildSourcemaps": false,
+  "fixCodeOnTest": true,
+  "fixCodeOnBuild": true,
+  "devServerPort": "8080"
+}
