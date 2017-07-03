@@ -19,18 +19,30 @@
     <f7-statusbar></f7-statusbar>
 
     <!-- Left panel -->
-    <f7-panel left reveal layout="dark">
-      <f7-view id="left-panel-view" navbar-through :dynamic-navbar="true" url="panel-left"></f7-view>
+    <f7-panel left
+              reveal
+              layout="dark">
+      <f7-view id="left-panel-view"
+               navbar-through
+               :dynamic-navbar="true"
+               url="panel-left"></f7-view>
     </f7-panel>
 
     <!-- Right panel -->
-    <f7-panel right cover layout="dark">
-      <f7-view id="right-panel-view" navbar-through :dynamic-navbar="true" url="panel-right"></f7-view>
+    <f7-panel right
+              cover
+              layout="dark">
+      <f7-view id="right-panel-view"
+               navbar-through
+               :dynamic-navbar="true"
+               url="panel-right"></f7-view>
     </f7-panel>
 
     <!-- Main view -->
     <f7-views navbar-through>
-      <f7-view main url="/home/" :dynamic-navbar="true"></f7-view>
+      <f7-view main
+               url="/home/"
+               :dynamic-navbar="true"></f7-view>
     </f7-views>
 
   </div>
@@ -38,6 +50,10 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+  import vuefire from 'vuefire'
+  Vue.use(vuefire)
+  
   require('./kitchen-sink-ios.css')
   require('./kitchen-sink-material.css')
   let iosKitchenSinkCode = require('./kitchen-sink-ios.js')
@@ -77,4 +93,11 @@
       }
     }
   }
+
 </script>
+
+<style>
+  .popover {
+    max-width: 95%;
+  }
+</style>

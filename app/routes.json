@@ -717,6 +717,10 @@
     "component": "home.vue"
   },
   {
+    "path": "/lists/",
+    "component": "lists.vue"
+  },
+  {
     "path": "/multiple-languages/",
     "component": "multiple-languages.vue"
   },

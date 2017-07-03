@@ -1,8 +1,11 @@
- {
+{
   "name": "my-app",
   "version": "1.0.0",
   "devDependencies": {
-    "app-framework": "^1.9.6"
+    "app-framework": "^1.9.10"
+  },
+  "dependencies": {
+    "vuefire": "^1.4.3"
   },
   "scripts": {
     "android": "node node_modules/app-framework/scripts/cordova --android",
