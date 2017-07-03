@@ -1,5 +1,9 @@
 [
   {
+    "path": "/edit/",
+    "component": "edit.vue"
+  },
+  {
     "path": "/f7ios/about/",
     "component": "f7ios/about.vue"
   },
@@ -711,6 +715,10 @@
   {
     "path": "/flexible-routing/blog/:blogId/post/:postId/",
     "component": "flexible-routing.vue"
+  },
+  {
+    "path": "/form-fields/",
+    "component": "form-fields.vue"
   },
   {
     "path": "/home/",

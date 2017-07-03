@@ -27,10 +27,10 @@
   </f7-page>
 </template>
 <script>
-  console.log('list.vue', this)
+  console.log('list.vue')
 
   export default {
-    name: 'FirebaseList',
+    name: 'ListFB',
 
     data: function () {
       return {
@@ -38,9 +38,9 @@
       }
     },
 
-    firebase: {
-      items: window.firebase.database().ref('null')
-    },
+      // firebase: {
+      //   items: window.firebase.database().ref('null')
+      // },
 
     watch: {
       key: function (value, oldValue) {
@@ -50,7 +50,7 @@
 
         console.log('key changed', value, oldValue)
         this.$firebaseRefs && this.$firebaseRefs.items && this.$unbind('items')
-        this.$bindAsArray('items', window.firebase.database().ref(value))
+        this.$bindAsArray('items', window.db(value))
       }
     },
 
@@ -67,6 +67,7 @@
     },
 
     beforeMount: function () {
+      this.$bindAsArray('items', window.db('null'))
       this.key = this.$route.hash
     }
   }
