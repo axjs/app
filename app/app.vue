@@ -53,7 +53,7 @@
   import Vue from 'vue'
   import vuefire from 'vuefire'
   Vue.use(vuefire)
-  
+
   require('./kitchen-sink-ios.css')
   require('./kitchen-sink-material.css')
   let iosKitchenSinkCode = require('./kitchen-sink-ios.js')

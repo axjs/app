@@ -66,17 +66,15 @@
 
       }
     },
-    firebase: {
-      // items: firebase.database().ref('null'),
-      item: {
-        source: firebase.database().ref('null'),
-        asObject: true,
-        cancelCallback: function () {
-          console.error('cancelCallback')
-        }
-      }
-      // fields : firebase.database().ref('null'),
-    },
+    // firebase: {
+    //   item: {
+    //     source: firebase.database().ref('null'),
+    //     asObject: true,
+    //     cancelCallback: function () {
+    //       console.error('cancelCallback')
+    //     }
+    //   }
+    // },
     methods: {
       handleFileSelect: function (evt) {
         console.log('handleFileSelect', evt)
@@ -129,10 +127,14 @@
         deep: true
       }
     },
+    
     mounted: function () {
+      firebase = window.firebase
       console.log('$route', this.$route.params.key, this.$route)
+      this.$bindAsObject('item', firebase.database().ref('null'), () => console.log('Cancel fired!'), () => console.log('Ready fired!'))
       this.key = this.$route.hash
     },
+    
     components: {
       'form-fields': FormFields
     }
