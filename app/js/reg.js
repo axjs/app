@@ -36,18 +36,18 @@ class Reg {
    * var balanse = reg.balanse({
    *  idGood: 1
    * }, Date.now())
-   * 
-   * @param {*} dt 
-   * @param {*} keys 
+   *
+   * @param {*} dt
+   * @param {*} keys
    */
   balanse (keys, dt = Date.now()) {
 
   }
 
   /**
-   * 
-   * @param {*} dt 
-   * @param {*} keys 
+   *
+   * @param {*} dt
+   * @param {*} keys
    */
   rev (keys, from = Date.now(), to = Date.now()) {
 
