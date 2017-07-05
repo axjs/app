@@ -54,6 +54,9 @@
   import vuefire from 'vuefire'
   Vue.use(vuefire)
 
+  import Reg from './js/reg.js'
+  console.log('Reg', Reg)
+
   require('./kitchen-sink-ios.css')
   require('./kitchen-sink-material.css')
   let iosKitchenSinkCode = require('./kitchen-sink-ios.js')
@@ -74,6 +77,15 @@
         actionsOpened: false
       }
     },
+    created () {
+      // Update status bar text color after theme color change
+      this.$watch(() => {
+        return this.$root.color
+      }, (newColor, oldColor) => {
+        this.$root.statusbarTextColor = newColor === 'white' ? 'black' : 'white'
+        this.$root.statusbarBackgroundColor = newColor === 'white' && window.cordova === undefined ? '000000' : this.$root.colors[this.$root.theme][newColor]
+      })
+    },
     methods: {
       onF7Init: function () {
         if (this.$root.theme === 'ios') {
@@ -93,7 +105,6 @@
       }
     }
   }
-
 </script>
 
 <style>

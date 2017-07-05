@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "1.0.0",
   "devDependencies": {
-    "app-framework": "^1.9.13"
+    "app-framework": "1.10.0"
   },
   "dependencies": {
     "vuefire": "^1.4.3"

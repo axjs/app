@@ -2,7 +2,12 @@
   <f7-page>
     <f7-navbar back-link="Back"
                :title="key"
-               sliding></f7-navbar>
+               sliding>
+      <f7-nav-right>
+        <f7-link icon="icon-add"
+                 @click="save(item)"></f7-link>
+      </f7-nav-right>
+    </f7-navbar>
     <input type="file"
            id="file"
            name="file"
@@ -21,7 +26,7 @@
 
     data: function () {
       return {
-        // item: {}
+        item: {},
         key: '',
         fields: [
           {
@@ -93,6 +98,27 @@
         }).catch(function (error) {
           console.error('Upload failed:', error)
         })
+      },
+
+      save : function(value) {
+          var vm = this
+          var res = JSON.parse(JSON.stringify(value))
+          console.log('res', res, value)
+          if (!res) {
+            return
+          }
+          delete res['.key']
+          if (value['.key']) {
+            firebase.database().ref(this.key).set(res)
+              .then(function () {
+                // console.log('Synchronization succeeded');
+              })
+              .catch(function (error) {
+                console.log('Synchronization failed', error)
+                vm.$f7.alert(error, 'Firebase')
+              })
+          }
+
       }
 
     },
@@ -104,37 +130,41 @@
         // this.$bindAsObject('fields', firebase.database().ref( '_dicts/' + value.split('/').slice(0, -1).join('/')+'/fields' ))
 
         // bind item
-        this.$firebaseRefs && this.$firebaseRefs.item && this.$unbind('item')
-        this.$bindAsObject('item', firebase.database().ref(value))
+        // this.$firebaseRefs && this.$firebaseRefs.item && this.$unbind('item')
+        this.$bindAsObject('item', firebase.database().ref(value), () => console.log('Cancel fired!'), () => console.log('Ready fired!'))
       },
-      item: {
-        handler: function (value, oldValue) {
-          var vm = this
-          var res = JSON.parse(JSON.stringify(value))
-          delete res['.key']
-          console.log('item changed', value, oldValue, value['.key'], Object.keys(value))
-          if (value['.key']) {
-            firebase.database().ref(this.key).set(res)
-              .then(function () {
-                // console.log('Synchronization succeeded');
-              })
-              .catch(function (error) {
-                console.log('Synchronization failed', error)
-                vm.$f7.alert(error, 'Firebase')
-              })
-          }
-        },
-        deep: true
-      }
+      // item: {
+      //   handler: function (value, oldValue) {
+      //     var vm = this
+      //     var res = JSON.parse(JSON.stringify(value))
+      //     console.log('res', res, value)
+      //     if (!res) {
+      //       return
+      //     }
+      //     delete res['.key']
+      //     console.log('item changed', value, oldValue, value['.key'], Object.keys(value))
+      //     if (value['.key']) {
+      //       firebase.database().ref(this.key).set(res)
+      //         .then(function () {
+      //           // console.log('Synchronization succeeded');
+      //         })
+      //         .catch(function (error) {
+      //           console.log('Synchronization failed', error)
+      //           vm.$f7.alert(error, 'Firebase')
+      //         })
+      //     }
+      //   },
+      //   deep: true
+      // }
     },
-    
+
     mounted: function () {
       firebase = window.firebase
       console.log('$route', this.$route.params.key, this.$route)
       this.$bindAsObject('item', firebase.database().ref('null'), () => console.log('Cancel fired!'), () => console.log('Ready fired!'))
       this.key = this.$route.hash
     },
-    
+
     components: {
       'form-fields': FormFields
     }
