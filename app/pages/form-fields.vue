@@ -26,7 +26,7 @@
     props: {
       fields: Array,
       item: Object
-    },
+    }
   }
 
 </script>

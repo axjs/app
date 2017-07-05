@@ -25,7 +25,7 @@
 
     data: function () {
       return {
-        //item: {},
+        // item: {},
         // key: '',
         fields: [
           {
@@ -43,13 +43,13 @@
             label: 'Age',
             type: 'text',
             key: 'age',
-            default: 3,
+            default: 3
           },
           {
             label: 'Switch',
             type: 'switch',
             key: 'switch',
-            default: true,
+            default: true
           },
           {
             label: 'Select',
@@ -80,7 +80,7 @@
           this.$f7.alert('Query error', 'Error')
           return
         }
-        var key = this.$route.query.ref + '/' +this.$route.query.key //this.$route.hash
+        var key = this.$route.query.ref + '/' + this.$route.query.key // this.$route.hash
         // this.$firebaseRefs && this.$firebaseRefs.item && this.$unbind('item')
         this.$bindAsObject('item', window.firebase.database().ref(key), () => console.log('Cancel fired!'), () => console.log('Ready fired!'))
         return key
@@ -112,9 +112,8 @@
         var res = JSON.parse(JSON.stringify(value))
         console.log('res', res, value)
         if (!res ||
-          !res['.key']
-          || res['.value'] === null) {
-
+          !res['.key'] ||
+          res['.value'] === null) {
           console.log('Error res', res)
           vm.$f7.alert('Wrong data', 'Error')
 
@@ -124,7 +123,7 @@
 
         window.firebase.database().ref(this.key).set(res)
           .then(function () {
-            console.log('Synchronization succeeded');
+            console.log('Synchronization succeeded')
           })
           .catch(function (error) {
             console.log('Synchronization failed', error)

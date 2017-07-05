@@ -76,11 +76,10 @@
       clone: function (item) {
         var res = JSON.parse(JSON.stringify(item))
         if (!res ||
-          !res['.key']
-          || res['.value'] === null) {
-
+          !res['.key'] ||
+          res['.value'] === null) {
           console.log('Error res', res)
-          vm.$f7.alert('Wrong data', 'Error')
+          this.$f7.alert('Wrong data', 'Error')
 
           return
         }
