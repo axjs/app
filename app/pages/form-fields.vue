@@ -1,5 +1,5 @@
 <template>
-  <f7-list v-if="item"
+  <f7-list v-if="true"
            form
            contacts>
     <f7-list-item v-for="field in fields">

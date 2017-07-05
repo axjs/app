@@ -17,7 +17,6 @@
   </f7-page>
 </template>
 <script>
-  var firebase = window.firebase
 
   import FormFields from './form-fields.vue'
 
@@ -27,7 +26,7 @@
     data: function () {
       return {
         item: {},
-        key: '',
+        // key: '',
         fields: [
           {
             label: 'Name',
@@ -80,6 +79,15 @@
     //     }
     //   }
     // },
+    computed: {
+      key: function () {
+        console.log('$route', this.$route.hash, this.$route)
+        var key = this.$route.hash
+        this.$bindAsObject('item', window.firebase.database().ref(key), () => console.log('Cancel fired!'), () => console.log('Ready fired!'))
+        return key
+      }
+    },
+
     methods: {
       handleFileSelect: function (evt) {
         console.log('handleFileSelect', evt)
@@ -100,24 +108,24 @@
         })
       },
 
-      save : function(value) {
-          var vm = this
-          var res = JSON.parse(JSON.stringify(value))
-          console.log('res', res, value)
-          if (!res) {
-            return
-          }
-          delete res['.key']
-          if (value['.key']) {
-            firebase.database().ref(this.key).set(res)
-              .then(function () {
-                // console.log('Synchronization succeeded');
-              })
-              .catch(function (error) {
-                console.log('Synchronization failed', error)
-                vm.$f7.alert(error, 'Firebase')
-              })
-          }
+      save: function (value) {
+        var vm = this
+        var res = JSON.parse(JSON.stringify(value))
+        console.log('res', res, value)
+        if (!res) {
+          return
+        }
+        delete res['.key']
+        if (value['.key']) {
+          window.firebase.database().ref(this.key).set(res)
+            .then(function () {
+              // console.log('Synchronization succeeded');
+            })
+            .catch(function (error) {
+              console.log('Synchronization failed', error)
+              vm.$f7.alert(error, 'Firebase')
+            })
+        }
 
       }
 
@@ -133,36 +141,36 @@
         // this.$firebaseRefs && this.$firebaseRefs.item && this.$unbind('item')
         this.$bindAsObject('item', firebase.database().ref(value), () => console.log('Cancel fired!'), () => console.log('Ready fired!'))
       },
-      // item: {
-      //   handler: function (value, oldValue) {
-      //     var vm = this
-      //     var res = JSON.parse(JSON.stringify(value))
-      //     console.log('res', res, value)
-      //     if (!res) {
-      //       return
-      //     }
-      //     delete res['.key']
-      //     console.log('item changed', value, oldValue, value['.key'], Object.keys(value))
-      //     if (value['.key']) {
-      //       firebase.database().ref(this.key).set(res)
-      //         .then(function () {
-      //           // console.log('Synchronization succeeded');
-      //         })
-      //         .catch(function (error) {
-      //           console.log('Synchronization failed', error)
-      //           vm.$f7.alert(error, 'Firebase')
-      //         })
-      //     }
-      //   },
-      //   deep: true
-      // }
+      item: {
+        handler: function (value, oldValue) {
+          //     var vm = this
+          var res = JSON.parse(JSON.stringify(value))
+          console.log('res', res, value)
+          //     if (!res) {
+          //       return
+          //     }
+          //     delete res['.key']
+          //     console.log('item changed', value, oldValue, value['.key'], Object.keys(value))
+          //     if (value['.key']) {
+          //       firebase.database().ref(this.key).set(res)
+          //         .then(function () {
+          //           // console.log('Synchronization succeeded');
+          //         })
+          //         .catch(function (error) {
+          //           console.log('Synchronization failed', error)
+          //           vm.$f7.alert(error, 'Firebase')
+          //         })
+          //     }
+        },
+        deep: true
+      }
     },
 
     mounted: function () {
-      firebase = window.firebase
-      console.log('$route', this.$route.params.key, this.$route)
-      this.$bindAsObject('item', firebase.database().ref('null'), () => console.log('Cancel fired!'), () => console.log('Ready fired!'))
-      this.key = this.$route.hash
+      // firebase = window.firebase
+      // console.log('$route', this.$route.params.key, this.$route)
+      // this.$bindAsObject('item', firebase.database().ref('null'), () => console.log('Cancel fired!'), () => console.log('Ready fired!'))
+      // this.key = this.$route.hash
     },
 
     components: {
