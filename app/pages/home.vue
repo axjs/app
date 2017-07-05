@@ -77,13 +77,13 @@
       <f7-list-item link="/multiple-languages/"
                     title="Multiple languages"
                     :media="'<img src=\'' + (images['flag_' + $root.language] || images['flag_en']) + '\' width=\'29\' />'" />
-      <f7-list-item link="/lists#users"
+      <f7-list-item link="/lists/?ref=users"
                     title="users"></f7-list-item>
-      <f7-list-item link="/lists#goods"
+      <f7-list-item link="/lists/?ref=goods"
                     title="goods"></f7-list-item>
-      <f7-list-item link="/lists#cats"
+      <f7-list-item link="/lists/?ref=cats"
                     title="cats"></f7-list-item>
-      <f7-list-item link="/lists#dicts"
+      <f7-list-item link="/lists/?ref=dicts"
                     title="dicts"></f7-list-item>
     </f7-list>
 

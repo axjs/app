@@ -1,7 +1,7 @@
 <template>
   <f7-page>
     <f7-fab color="pink"
-            @click="addItem">
+            @click="add">
       <f7-icon icon="icon-plus"></f7-icon>
     </f7-fab>
 
@@ -11,16 +11,24 @@
     <!-- <f7-block-title co>List</f7-block-title> -->
     <f7-list contacts>
       <f7-list-item swipeout
-                    :link="'/edit#'+key+'/'+item['.key']"
+                    :link="['/edit/?ref=', key, '&key=', item['.key']].join('')"
                     :key="item['.key']"
                     v-for="item in items"
                     :title="item.name || item.title"
                     :badge="item['.key']"
                     badge-color="red">
-        <f7-swipeout-actions>
-          <f7-swipeout-button delete
-                              @click="removeItem(item)">Delete</f7-swipeout-button>
+        <f7-swipeout-actions left>
+          <f7-swipeout-button close
+                              color="red"
+                              @click="remove(item)">Delete</f7-swipeout-button>
         </f7-swipeout-actions>
+
+        <f7-swipeout-actions>
+          <f7-swipeout-button close
+                              color="blue"
+                              @click="clone(item)">Clone</f7-swipeout-button>
+        </f7-swipeout-actions>
+
       </f7-list-item>
     </f7-list>
 
@@ -33,36 +41,52 @@
     name: 'ListFB',
 
     data: function () {
-      return {
-        key: ''
-      }
+      return {}
     },
 
-      // firebase: {
-      //   items: window.firebase.database().ref('null')
-      // },
+    // firebase: {
+    //   items: window.firebase.database().ref('null')
+    // },
 
-    watch: {
-      key: function (value, oldValue) {
-        if (value === oldValue) {
+    computed: {
+      key: function () {
+        if (!this.$route.query ||
+          !this.$route.query.ref) {
+          this.$f7.alert('Query error', 'Error')
           return
         }
-
-        console.log('key changed', value, oldValue)
-        this.$firebaseRefs && this.$firebaseRefs.items && this.$unbind('items')
-        this.$bindAsArray('items', window.db(value))
+        var key = this.$route.query.ref
+        this.$bindAsArray('items', window.db(key))
+        return key
       }
     },
 
     methods: {
-      addItem: function () {
+      add: function () {
         console.log('add')
         this.$firebaseRefs.items.push({
           name: 'ax'
         })
       },
-      removeItem: function (item) {
+
+      remove: function (item) {
         this.$firebaseRefs.items.child(item['.key']).remove()
+      },
+
+      clone: function (item) {
+        var res = JSON.parse(JSON.stringify(item))
+        if (!res ||
+          !res['.key']
+          || res['.value'] === null) {
+
+          console.log('Error res', res)
+          vm.$f7.alert('Wrong data', 'Error')
+
+          return
+        }
+        delete res['.key']
+
+        this.$firebaseRefs.items.push(res)
       }
     },
 

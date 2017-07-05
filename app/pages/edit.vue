@@ -4,20 +4,20 @@
                :title="key"
                sliding>
       <f7-nav-right>
-        <f7-link icon="icon-add"
-                 @click="save(item)"></f7-link>
+        <f7-link icon-f7="check"
+                 @click="save(item)">Save</f7-link>
       </f7-nav-right>
     </f7-navbar>
     <input type="file"
            id="file"
            name="file"
            @change="handleFileSelect" />
-    <form-fields :fields="fields"
+    <form-fields v-if="item"
+                 :fields="fields"
                  :item="item"></form-fields>
   </f7-page>
 </template>
 <script>
-
   import FormFields from './form-fields.vue'
 
   export default {
@@ -25,7 +25,7 @@
 
     data: function () {
       return {
-        item: {},
+        //item: {},
         // key: '',
         fields: [
           {
@@ -42,12 +42,14 @@
           {
             label: 'Age',
             type: 'text',
-            key: 'age'
+            key: 'age',
+            default: 3,
           },
           {
             label: 'Switch',
             type: 'switch',
-            key: 'switch'
+            key: 'switch',
+            default: true,
           },
           {
             label: 'Select',
@@ -70,19 +72,15 @@
 
       }
     },
-    // firebase: {
-    //   item: {
-    //     source: firebase.database().ref('null'),
-    //     asObject: true,
-    //     cancelCallback: function () {
-    //       console.error('cancelCallback')
-    //     }
-    //   }
-    // },
     computed: {
       key: function () {
-        console.log('$route', this.$route.hash, this.$route)
-        var key = this.$route.hash
+        if (!this.$route.query ||
+          !this.$route.query.ref ||
+          !this.$route.query.key) {
+          this.$f7.alert('Query error', 'Error')
+          return
+        }
+        var key = this.$route.query.ref + '/' +this.$route.query.key //this.$route.hash
         // this.$firebaseRefs && this.$firebaseRefs.item && this.$unbind('item')
         this.$bindAsObject('item', window.firebase.database().ref(key), () => console.log('Cancel fired!'), () => console.log('Ready fired!'))
         return key
@@ -113,20 +111,25 @@
         var vm = this
         var res = JSON.parse(JSON.stringify(value))
         console.log('res', res, value)
-        if (!res) {
+        if (!res ||
+          !res['.key']
+          || res['.value'] === null) {
+
+          console.log('Error res', res)
+          vm.$f7.alert('Wrong data', 'Error')
+
           return
         }
         delete res['.key']
-        if (value['.key']) {
-          window.firebase.database().ref(this.key).set(res)
-            .then(function () {
-              // console.log('Synchronization succeeded');
-            })
-            .catch(function (error) {
-              console.log('Synchronization failed', error)
-              vm.$f7.alert(error, 'Firebase')
-            })
-        }
+
+        window.firebase.database().ref(this.key).set(res)
+          .then(function () {
+            console.log('Synchronization succeeded');
+          })
+          .catch(function (error) {
+            console.log('Synchronization failed', error)
+            vm.$f7.alert(error, 'Firebase')
+          })
       }
 
     },

@@ -1,6 +1,5 @@
 <template>
-  <f7-list v-if="true"
-           form
+  <f7-list form
            contacts>
     <f7-list-item v-for="field in fields">
       <f7-icon icon="icon-plus"></f7-icon>
@@ -28,11 +27,6 @@
       fields: Array,
       item: Object
     },
-
-    mounted: function () {
-      console.log('FORM', this.fields, this.item)
-    }
-
   }
 
 </script>
