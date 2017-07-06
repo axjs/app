@@ -22,7 +22,7 @@
     "uniqueHistory": true
   },
   "materialSubnavbarFix": true,
-  "restoreHistory": true,
+  "restoreHistory": false,
   "completeRoutesFile": true,
   "firebase": {
     "apiKey": "AIzaSyDc_LHRrNRto4BV23Do8NHsqNdAt26Fz10",

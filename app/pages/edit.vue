@@ -1,5 +1,7 @@
 <template>
   <f7-page>
+    <f7-progressbar v-if="busy"
+                    infinite></f7-progressbar>
     <f7-navbar back-link="Back"
                :title="key"
                sliding>
@@ -21,12 +23,13 @@
   import FormFields from './form-fields.vue'
 
   export default {
-    name: 'FirebaseEdit',
+    name: 'DictEdit',
 
     data: function () {
       return {
         // item: {},
         // key: '',
+        busy: false,
         fields: [
           {
             label: 'Name',

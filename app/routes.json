@@ -743,5 +743,9 @@
   {
     "path": "/state-restoration/",
     "component": "state-restoration.vue"
+  },
+  {
+    "path": "/webshoot/",
+    "component": "webshoot.vue"
   }
 ]

@@ -54,6 +54,8 @@
     <!-- Demonstration -->
     <f7-block-title>Feature Demonstration</f7-block-title>
     <f7-list>
+      <f7-list-item link="/webshoot/"
+                    title="WebShoot"></f7-list-item>
       <f7-list-item link="/f7ios/index/"
                     title="iOS Components"
                     media="<i class='icon icon-f7' />"

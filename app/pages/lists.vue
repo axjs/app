@@ -1,6 +1,9 @@
 <template>
   <f7-page>
-    <f7-fab color="pink"
+    <f7-progressbar v-if="busy"
+                    infinite></f7-progressbar>
+    <f7-fab v-if="!busy"
+            color="pink"
             @click="add">
       <f7-icon icon="icon-plus"></f7-icon>
     </f7-fab>
@@ -35,13 +38,14 @@
   </f7-page>
 </template>
 <script>
-  console.log('list.vue')
 
   export default {
-    name: 'ListFB',
+    name: 'DictList',
 
     data: function () {
-      return {}
+      return {
+        busy: false
+      }
     },
 
     // firebase: {
@@ -56,7 +60,9 @@
           return
         }
         var key = this.$route.query.ref
-        this.$bindAsArray('items', window.db(key))
+
+        this.busy = true
+        this.$bindAsArray('items', window.db(key), () => (this.busy = false), () => (this.busy = false))
         return key
       }
     },
