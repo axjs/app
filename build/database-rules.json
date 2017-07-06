@@ -2,14 +2,13 @@
   "rules": {
     ".read": "auth != null",
     ".write": "auth != null",
-   
-    "private": {
+    "privateData": {
       "$uid": {
         ".read": "$uid === auth.uid",
         ".write": "$uid === auth.uid"
       }
     },
-    "public": {
+    "publicData": {
       "todos": {
         ".read": "true",
         ".write": "true",

@@ -2,7 +2,9 @@
   <f7-page>
 
     <!-- Navbar and backlink -->
-    <f7-navbar title="Private Firebase Storage" back-link="Back" sliding />
+    <f7-navbar title="Private Firebase Storage"
+               back-link="Back"
+               sliding />
 
     <!-- Description box -->
     <f7-block>
@@ -12,20 +14,25 @@
     <!-- Private notes text field -->
     <f7-list form>
       <f7-list-item>
-        <f7-input name="notes" :value="notes" @change="updateNotes" type="textarea" placeholder="Your private Notes ..."></f7-input>
+        <f7-input name="notes"
+                  :value="notes"
+                  @change="updateNotes"
+                  type="textarea"
+                  placeholder="Your private Notes ..."></f7-input>
       </f7-list-item>
     </f7-list>
 
     <!-- Image uploader component -->
     <f7-block>
-      <image-uploader
-        :store="'privateData/' + $root.user.uid"
-        :db="'privateData/' + $root.user.uid + '/photo'" />
+      <image-uploader :store="'privateData/' + $root.user.uid"
+                      :db="'privateData/' + $root.user.uid + '/photo'" />
     </f7-block>
 
     <!-- Image -->
-    <f7-block inset v-if="photo">
-      <img :src="photo" width="100%" />
+    <f7-block inset
+              v-if="photo">
+      <img :src="photo"
+           width="100%" />
     </f7-block>
 
   </f7-page>
@@ -60,4 +67,5 @@
       }
     }
   }
+
 </script>

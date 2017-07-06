@@ -246,9 +246,17 @@
       }
     },
 
-    beforeMount: function () {
-        this.busy = true
-        this.$bindAsArray('items', window.firebase.database().ref(this.key), () => (this.busy = false), () => (this.busy = false))
+    created: function () {
+      this.busy = true
+      this.$bindAsArray('items',
+        window.firebase.database().ref(this.key),
+        (error) => {
+          this.$f7.alert(error.message, 'Error ' + error.code)
+          this.busy = false
+        },
+        () => {
+          this.busy = false
+        })
     }
   }
 

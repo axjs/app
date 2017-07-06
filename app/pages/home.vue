@@ -5,7 +5,7 @@
 
     <!-- Navbar -->
     <f7-navbar sliding
-               :title="$root.config.title">
+               :title="$root.config.title + ' ' +$root.version">
       <f7-nav-right v-if="$root.user">
         <f7-link icon-material="person"
                  href="/app-framework-login-screen/" /></f7-nav-right>
@@ -16,7 +16,7 @@
               inset
               style="text-align: center"
               v-if="$root.appMode==='mobile'">
-      <p><b>For native App feeling, please pin this page to your homescreen and open it from there!</b></p>
+      <p><b>For native App feeling, please pin this page to your homescreen and open it from there!</b> {{ $root.appMode }}</p>
     </f7-block>
 
     <!-- Configuration -->
@@ -54,8 +54,11 @@
     <!-- Demonstration -->
     <f7-block-title>Feature Demonstration</f7-block-title>
     <f7-list>
-      <f7-list-item link="/webshoot/"
-                    title="WebShoot"></f7-list-item>
+      <f7-list-group>
+        <f7-list-item link="/webshoot/"
+                      title="WebShoot"
+                      :media="'<img src=\'' + images.firebase + '\' width=\'29\' />'" />
+      </f7-list-group>
       <f7-list-item link="/f7ios/index/"
                     title="iOS Components"
                     media="<i class='icon icon-f7' />"
@@ -79,14 +82,17 @@
       <f7-list-item link="/multiple-languages/"
                     title="Multiple languages"
                     :media="'<img src=\'' + (images['flag_' + $root.language] || images['flag_en']) + '\' width=\'29\' />'" />
-      <f7-list-item link="/lists/?ref=users"
-                    title="users"></f7-list-item>
-      <f7-list-item link="/lists/?ref=goods"
-                    title="goods"></f7-list-item>
-      <f7-list-item link="/lists/?ref=cats"
-                    title="cats"></f7-list-item>
-      <f7-list-item link="/lists/?ref=dicts"
-                    title="dicts"></f7-list-item>
+      <f7-list-group>
+        <f7-block-title>Dicts</f7-block-title>
+        <f7-list-item link="/lists/?ref=users"
+                      title="users"></f7-list-item>
+        <f7-list-item link="/lists/?ref=goods"
+                      title="goods"></f7-list-item>
+        <f7-list-item link="/lists/?ref=cats"
+                      title="cats"></f7-list-item>
+        <f7-list-item link="/lists/?ref=dicts"
+                      title="dicts"></f7-list-item>
+      </f7-list-group>
     </f7-list>
 
     <!-- Link to GitHub repository -->
@@ -98,6 +104,10 @@
                  style="padding-bottom: 3px" />&nbsp;&nbsp;Made with App Framework - {{$root.frameworkVersion}}</f7-link>
     </f7-block>
 
+    <f7-block style="text-align: center">
+      <f7-link @click="signInAnonymously">
+        &nbsp;&nbsp;signInAnonymously</f7-link>
+    </f7-block>
   </f7-page>
 </template>
 
@@ -115,6 +125,22 @@
       }
     },
     methods: {
+      signInAnonymously: function () {
+        console.log('signInAnonymously')
+        window.firebase.auth().signInAnonymously()
+          .then(function (res) {
+            console.log('signInAnonymously', res)
+            window.f7.addNotification({
+              title: 'Sign in',
+              message: 'Sign in anonymously',
+              hold: 3000,
+              closeIcon: false
+            })
+          })
+          .catch(function (error) {
+            this.$f7.alert(error.message, 'Error ' + error.code)
+          })
+      },
       updateSmartlist: function (e) {
         setTimeout(function () {
           let text = this.$$(e.target).find('option[value=' + e.target.value + ']').text()

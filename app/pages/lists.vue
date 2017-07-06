@@ -38,7 +38,6 @@
   </f7-page>
 </template>
 <script>
-
   export default {
     name: 'DictList',
 
@@ -62,7 +61,15 @@
         var key = this.$route.query.ref
 
         this.busy = true
-        this.$bindAsArray('items', window.db(key), () => (this.busy = false), () => (this.busy = false))
+        this.$bindAsArray('items',
+          window.db(key),
+          (error) => {
+            this.$f7.alert(error.message, 'Error ' + error.code)
+            this.busy = false
+          },
+          () => {
+            this.busy = false
+          })
         return key
       }
     },

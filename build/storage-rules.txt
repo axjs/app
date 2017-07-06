@@ -1,5 +1,8 @@
 service firebase.storage {
   match /b/data-ab752.appspot.com/o {
+    match /{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
     match /privateData/{uid} {
       allow read, write: if uid == request.auth.uid;
     }

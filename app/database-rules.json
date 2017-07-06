@@ -1,5 +1,7 @@
 {
   "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null",
     "privateData": {
       "$uid": {
         ".read": "$uid === auth.uid",

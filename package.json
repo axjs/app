@@ -1,6 +1,6 @@
 {
   "name": "my-app",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "devDependencies": {
     "app-framework": "1.10.0"
   },
